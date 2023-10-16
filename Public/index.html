@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -147,13 +147,6 @@
                 {
                     data: [],
                     backgroundColor: [
-                        '#ffcd56',
-                        '#ff6384',
-                        '#36a2eb',
-                        '#fc6b19',
-                        '#808080',
-                        '#964B00',
-                        "#4CAF50"
                     ],
                 }
             ],
@@ -211,15 +204,20 @@
         }
 
         function getBudget() {
-            axios.get('http://localhost:3000/budget')
+            axios.get('http://localhost:3100/personalbudget')
             .then(function (res) {
                 console.log(res);
-                for (var i = 0; i < res.data.budget.length; i++) {
-                    data.datasets[0].data[i] = res.data.budget[i].budget;
-                    data.labels[i] = res.data.budget[i].title;
+                var dataRes = res.data;
+                for (var i = 0; i < res.data.length; i++) {
+                    data.datasets[0].data[i] = res.data[i].budget;
+                    data.labels[i] = res.data[i].title;
+                    data.datasets[0].backgroundColor.push(res.data[i].color)
                 }
+                
+
                 createChart();
                 createD3Chart();
+
 
             });
         }
@@ -229,4 +227,5 @@
 </body>
 </html>
 
+ 
 
